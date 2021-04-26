@@ -18,17 +18,15 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-//            Member m = new Member();
-//            m.setId(2L);
-//            m.setName("JPA 2");
-//            em.persist(m);
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                                .getResultList();
+            // 비영속
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
-
+            System.out.println("=== BEFORE ===");
+            em.persist(member);
+            System.out.println("=== AFTER ===");
+            // 쿼리 뒤에서 나감
 
             tx.commit();
 
