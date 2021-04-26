@@ -18,18 +18,12 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            // 비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
 
-            System.out.println("=== BEFORE ===");
-            em.persist(member);
-            System.out.println("=== AFTER ===");
-            // 쿼리 뒤에서 나감
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZZZZ");
 
+            System.out.println("=====================");
             tx.commit();
-
         } catch (Exception e) {
             tx.rollback();
         } finally {
