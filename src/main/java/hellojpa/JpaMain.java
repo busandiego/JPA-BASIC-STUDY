@@ -17,12 +17,17 @@ public class JpaMain {
         // 트랜잭션
         EntityTransaction tx = em.getTransaction();
         tx.begin();
+        System.out.println("aaa");
         try {
 
-            Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZ");
+            Member member = new Member();
+            member.setName("안녕");
 
             System.out.println("=====================");
+            em.persist(member);
+            System.out.println("member.id: " + member.getId());
+            System.out.println("=====================");
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

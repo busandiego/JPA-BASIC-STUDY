@@ -1,9 +1,15 @@
 package hellojpa;
 
+import com.sun.javafx.geom.transform.Identity;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+import org.hibernate.tuple.GeneratedValueGeneration;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -16,36 +22,14 @@ import java.util.Date;
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", insertable = true, updatable = false)
+    @Column(name = "name", insertable = true, updatable = true)
     private String name;
 
-    private Integer age;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    @Lob
-    private String description;
-
-    @Transient
-    private int temp;
-
-    public Member() {
-
-    }
-
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Long getId() {
         return id;
@@ -62,4 +46,10 @@ public class Member {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public Member() {
+
+    }
+
 }
