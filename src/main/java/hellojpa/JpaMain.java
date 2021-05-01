@@ -16,13 +16,29 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Order order = em.find(Order.class, 1L);
 
-            order.getMember().getName();
+            // 저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Long memberId = order.getMemberId();
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
 
-            em.find(Member.class, memberId);
+            em.persist(member);
+
+            Member findMember = em.find(Member.class, member.getId());
+
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = :" + findTeam.getName());
+
+            Team newTeam = em.find(Team.class, 100L);
+            findMember.setTeam(newTeam);
+
+
+
+
 
             tx.commit();
         } catch (Exception e) {
