@@ -4,29 +4,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-import java.util.List;
 
 public class JpaMain {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("test2");
 
         EntityManager em = emf.createEntityManager();
-        
+
         // 트랜잭션
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-        System.out.println("aaa");
         try {
+            Order order = em.find(Order.class, 1L);
 
-            Member member = new Member();
-            member.setName("안녕");
+            order.getMember().getName();
 
-            System.out.println("=====================");
-            em.persist(member);
-            System.out.println("member.id: " + member.getId());
-            System.out.println("=====================");
+            Long memberId = order.getMemberId();
+
+            em.find(Member.class, memberId);
 
             tx.commit();
         } catch (Exception e) {
@@ -38,4 +34,6 @@ public class JpaMain {
         emf.close();
 
     }
+
+
 }
