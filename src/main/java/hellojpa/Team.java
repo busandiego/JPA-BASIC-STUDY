@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,8 @@ public class Team {
     private String name;
 
     // 가짜 맵핑
-    @OneToMany(mappedBy = "team")
+    @OneToMany
+    @JoinColumn(name = "MEMBER_ID")
     private List<Member> members = new ArrayList<>();
 
 //    public void addMember(Member member) {
